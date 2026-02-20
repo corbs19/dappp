@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Corby</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(to top, #ffdee9, #b5fffc);
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+
+        h1 {
+            font-size: 32px;
+            margin: 0;
+        }
+         h2 {
+            font-size: 15px;
+            margin: 0;
+        }
+
+        .flower {
+            position: absolute;
+            font-size: 30px;
+            animation: fall 6s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-100px); }
+            100% { transform: translateY(100vh); }
+        }
+
+        .buttons {
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 10px 25px;
+            font-size: 16px;
+            margin: 10px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            transform: scale(1.1);
+        }
+
+        .yes {
+            background-color: #666bf8;
+            color: rgb(0, 0, 0);
+        }
+
+        .no {
+            background-color: #912a2a;
+            color: rgba(0, 0, 0);
+        }
+
+        .back {
+            background-color: #9497f2dd;
+            color: rgba(0, 0, 0);
+             display: none;  
+        }
+
+        #response {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        #response img {
+            margin-top: 15px;
+            width: 200px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+
+     <h1 id="question">baby q, do you love me? </h1>
+     <h2 id="question">-corbs (asawa mo) </h2>
+     
+
+    <div class="buttons" id="choiceButtons">
+        <button class="yes" onclick="answer('Yes')">yes</button>
+        <button class="no" onclick="answer('No')">no</button>
+    </div>
+
+    <div id="response"></div>
+
+     <button class="back" id="backBtn" onclick="goBack()">back</button>
+
+    <script>
+        function answer(choice) {
+            const response = document.getElementById("response");
+            const buttons = document.getElementById("choiceButtons");
+            const backBtn = document.getElementById("backBtn");
+
+            if (choice === 'Yes') {
+                response.innerHTML = `
+                    <p>Yay! She loves you too 🩶</p>
+                    <img src="yes.jpg" alt="Yes Image">
+                `;
+            } else {
+                response.innerHTML = `
+                    <p>Ang kapal mo naman kung hindi! 😠</p>
+                    <img src="no.jpg" alt="No Image">
+                `;
+            }
+
+            buttons.style.display = "none";
+            backBtn.style.display = "inline-block";
+        }
+
+         function goBack() {
+            document.getElementById("response").innerHTML = "";
+            document.getElementById("choiceButtons").style.display = "block";
+            document.getElementById("backBtn").style.display = "none";
+        }
+
+        function createFlower() {
+            const flower = document.createElement("div");
+            flower.classList.add("flower");
+            flower.innerHTML = "🩶";
+            flower.style.left = Math.random() * 100 + "vw";
+            flower.style.animationDuration = (Math.random() * 3 + 3) + "s";
+            document.body.appendChild(flower);
+
+            setTimeout(() => {
+                flower.remove();
+            }, 6000);
+        }
+
+        setInterval(createFlower, 500);
+    </script>
+
+</body>
+</html>
